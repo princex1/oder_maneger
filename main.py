@@ -1,25 +1,24 @@
 from tkinter import Button, Label, Toplevel, StringVar, Entry, END, Tk, messagebox
 import json
 
-
 root = Tk()
 root.title("oder manager")
-root.geometry("550x450")
+root.geometry("570x500")
 root.resizable(False, False)
 root.iconbitmap('img\\logo.ico')
 
-pizza_prise = 99
-berger_prise = 69
-french_fries_prise = 49
-dosa_prise = 99
-item5_prise = 49
-# global user_name_var_top
 
-title = Label(text="oder manager", font="a 15 bold", padx=220, bg='black', fg='white', height=3)
-title.grid(row=0, column=2, columnspan=5)
+# setting item price
+pizza_price = 99
+berger_price = 69
+french_fries_price = 49
+dosa_price = 99
+momos_price = 49
+
+Label(text="oder manager", font="a 15 bold", padx=220, bg='black', fg='white', height=3).grid(row=0, column=2, columnspan=5)
 
 
-# write in fill
+# writing in fill
 def submit():
     total()
     name_info = name_var.get()
@@ -28,10 +27,10 @@ def submit():
     state_info = state_var.get()
     city_info = city_var.get()
     if name_info == '' or phone_info == '' or pincode_info == '' or state_info == '' or city_info == '':
-        messagebox.showinfo(title='oops', message='please enter full address')
+        messagebox.showinfo(title='Oops', message='please enter full address')
     else:
         building_info = building_var.get()
-        write_fill = open('C:\\Users\\win 10\\Desktop\\text.txt', mode='a')
+        write_fill = open('Document.txt', mode='a')
         fill_write1 = f"\n\nusername: {name_info} , phone no: {phone_info} , pincode: {pincode_info}\n"
         fill_write2 = f"state: {state_info}, city: {city_info} , building no: {building_info}\n"
         fill_write3 = f"total: {final_bill}"
@@ -46,18 +45,20 @@ def submit():
 # total button
 def total():
     global final_bill
+
     pizza_info = pizza_var.get()
     berger_info = berger_var.get()
     french_fries_info = french_fries_var.get()
     dosa_info = dosa_var.get()
-    item5_info = item5_var.get()
-    if pizza_info == '' and berger_info == '' and french_fries_info == '' and dosa_info == '' and item5_info == '':
-        messagebox.showinfo(title='enter oder', message='     please enter oder info     ')
+    momos_info = momos_var.get()
+
+    if pizza_info == '' and berger_info == '' and french_fries_info == '' and dosa_info == '' and momos_info == '':
+        messagebox.showinfo(title='enter oder', message='     Order Info Could Not Be Blank     ')
     else:
         try:
-            i1 = int(pizza_info)
+            pizza_n = int(pizza_info)
         except:
-            i1 = 0
+            pizza_n = 0
         try:
             i2 = int(berger_info)
         except:
@@ -71,18 +72,20 @@ def total():
         except:
             i4 = 0
         try:
-            i5 = int(item5_info)
+            i5 = int(momos_info)
         except:
             i5 = 0
-        pizza_info = i1 * pizza_prise
-        berger_info = i2 * 69
-        french_fries_info = i3 * 49
-        dosa_info = i4 * 50
-        item5_info = i5 * 50
-        final_bill = pizza_info + berger_info + french_fries_info + dosa_info + item5_info
+
+        # making final bill
+        pizza_total = pizza_n * pizza_price
+        berger_total = i2 * berger_price
+        french_fries_total = i3 * french_fries_price
+        dosa_total = i4 * dosa_price
+        momos_total = i5 * momos_price
+
+        final_bill = pizza_total + berger_total + french_fries_total + dosa_total + momos_total
         total_entry.delete(0, END)
-        total_entry.insert(0, final_bill)
-        print(final_bill)
+        total_entry.insert(0, str(final_bill))
 
 
 # menu top level
@@ -93,30 +96,31 @@ def menu():
     menu_window.iconbitmap('img\\logo.ico')
     menu_window.config(bg="green")
     menu_window.resizable(False, False)
-    title_leb = Label(menu_window, text="menu", padx=133, bg="green", font="asd 15 bold")
-    title_leb.grid(row=0, column=0)
+    Label(menu_window, text="menu", padx=133, bg="green", font="asd 15 bold").grid(row=0, column=0)
     info_prise_text = "No.                       item name                        prise"
     Label(menu_window, bg="green", text=info_prise_text).grid(row=1, column=0)
-    pizza_prise_text = f"1                             pizza                               {pizza_prise}"
+    pizza_prise_text = f"1                             pizza                               {pizza_price}"
     Label(menu_window, bg="green", text=pizza_prise_text).grid(row=2, column=0)
-    berger_prise_text = f"2                           berger                              {berger_prise}"
+    berger_prise_text = f"2                           berger                              {berger_price}"
     Label(menu_window, bg="green", text=berger_prise_text).grid(row=3, column=0)
-    french_fries_prise_text = f"3                         french fries                        {french_fries_prise}"
+    french_fries_prise_text = f"3                         french fries                        {french_fries_price}"
     Label(menu_window, bg="green", text=french_fries_prise_text).grid(row=4, column=0)
-    dosa_prise_text = f"4                               dosa                             {dosa_prise}"
+    dosa_prise_text = f"4                               dosa                             {dosa_price}"
     Label(menu_window, bg="green", text=dosa_prise_text).grid(row=5, column=0)
-    item5_prise_text = f"5                          item5 name                      {item5_prise}"
+    item5_prise_text = f"5                            Momos                        {momos_price}"
     Label(menu_window, bg="green", text=item5_prise_text).grid(row=6, column=0)
 
 
 # clear entry
 def clear():
+
     # oder info delete
     pizza_entry.delete(0, END)
     berger_entry.delete(0, END)
     french_fries_entry.delete(0, END)
     dosa_entry.delete(0, END)
-    item5_entry.delete(0, END)
+    momos_entry.delete(0, END)
+
     # personnel info delete
     name_entry.delete(0, END)
     phone_entry.delete(0, END)
@@ -128,8 +132,8 @@ def clear():
 
 
 # sing in button
-def sing_in(name, phone, pincode, stat, c, b):
-    new_user = {name: {"full_name": name, "Phone": phone, "pincode": pincode, "stat": stat, "city": c, "building": b}}
+def sing_in(name, phone, pincode, stat, city, building):
+    new_user = {name: {"full_name": name, "Phone": phone, "pincode": pincode, "stat": stat, "city": city, "building": building}}
 
     try:
         # seeing if there is any old passwords data file
@@ -151,12 +155,15 @@ def sing_in(name, phone, pincode, stat, c, b):
 
 # sing in top level
 def sing_in_top():
+    def log():
+        sing_in(name_log.get(), phone_log.get(), pin_log.get(), stat_log.get(), city_log.get(), building_log.get())
+        user_name.delete(0, END)
     global user_name_var, password_var
     log_top = Toplevel()
     log_top.title('sing in')
     log_top.iconbitmap('img\\logo.ico')
     log_top.geometry('500x280')
-    # log_top.resizable(False, False)
+    log_top.resizable(False, False)
     title_l = Label(log_top, text="sing in", font="a 15 bold", bg='black', fg='white', height=3, padx=220)
     title_l.grid(row=0, column=0, columnspan=5)
     Label(log_top, text='user name', fg='blue', font='serif 11 bold').grid(row=1, column=0)
@@ -191,22 +198,13 @@ def sing_in_top():
     building_log = StringVar()
     Entry(log_top, textvariable=building_log, bg='light pink').grid(row=6, column=3)
 
-    def log():
-        sing_in(name_log.get(), phone_log.get(), pin_log.get(), stat_log.get(), city_log.get(), building_log.get())
-        user_name.delete(0, END)
     Button(log_top, text='sing in', command=log).grid(row=3, column=1)
-    # name_info1 = name_log.get()
-    # phone_info1 = name_og.get()
-    # pin_info1 = name_log.get()
-    # stat_info1 = name_log.get()
-    # city_info1 = name_var_log.get()
-    # building_info1 = name_var_log.get()
 
 
 # auto fill
 def auto_fill():
-    global user_name_var_top
-    hello = user_name_var_top.get()
+    global user_name_auto
+    hello = user_name_auto.get()
     if name_var.get() == '':
         with open('user_data.json', 'r') as source:
             data = json.load(source)
@@ -217,112 +215,120 @@ def auto_fill():
             city = data[hello]['city']
             building = data[hello]['building']
 
-            if user_name_var_top.get() == full_name:
+            if hello == full_name:
                 name_entry.insert(0, full_name)
                 phone_entry.insert(0, phone)
                 pincode_entry.insert(0, pincode)
                 state_entry.insert(0, stat)
                 city_entry.insert(0, city)
                 building_entry.insert(0, building)
-            else:
-                print("hello")
-            # auto_fill_top.destroy()
-            # elif user_name_var_top.get() == '':
-            # messagebox.showinfo(title='ada', message='user name field cannot be blank     ')
             # else:
-            # messagebox.showinfo(title='ada', message='please enter right user name     ')
+            #     print("hello")
+            #     auto_fill_en.destroy()
+            elif user_name_auto.get() == '':
+                messagebox.showinfo(title='ada', message='user name field cannot be blank     ')
+            else:
+                messagebox.showinfo(title='ada', message='please enter right user name     ')
         # Button(auto_fill_top, text='auto fill', command=enter).grid(row=2, column=0)
-    # else:
-        # messagebox.showinfo(title='address already writen', message='     address already writen     ')
+    else:
+        messagebox.showinfo(title='address already writen', message='     address already writen     ')
 
 
-# item lab
+# Item labels
+
 # 1. oder info
-oder_info_leb = Label(text="oder info", font=('relief', 14, 'bold')).grid(row=1, column=3)
+Label(text="oder info", font=('relief', 14, 'bold')).grid(row=1, column=3)
 
-pizza_lab = Label(text="pizza", fg="blue", font='f 11 bold').grid(row=2, column=2)
+Label(text="pizza", fg="blue", font='f 11 bold').grid(row=2, column=2)
 pizza_var = StringVar()
 pizza_entry = Entry(textvariable=pizza_var, bg='light pink')
 pizza_entry.grid(row=2, column=3)
 
-berger_lab = Label(text="berger", fg="blue", font='f 11 bold').grid(row=3, column=2)
+Label(text="berger", fg="blue", font='f 11 bold').grid(row=3, column=2)
 berger_var = StringVar()
 berger_entry = Entry(textvariable=berger_var, bg='light pink')
 berger_entry.grid(row=3, column=3)
 
-french_fries_lab = Label(text="french fries", fg="blue", font='f 11 bold').grid(row=4, column=2)
+Label(text="french fries", fg="blue", font='f 11 bold').grid(row=4, column=2)
 french_fries_var = StringVar()
 french_fries_entry = Entry(textvariable=french_fries_var, bg='light pink')
 french_fries_entry.grid(row=4, column=3)
 
-dosa_lab = Label(text="dosa", fg="blue", font='f 11 bold').grid(row=5, column=2)
+Label(text="dosa", fg="blue", font='f 11 bold').grid(row=5, column=2)
 dosa_var = StringVar()
 dosa_entry = Entry(textvariable=dosa_var, bg='light pink')
 dosa_entry.grid(row=5, column=3)
 
-item5_lab = Label(text="item5", fg="blue", font='f 11 bold').grid(row=6, column=2)
-item5_var = StringVar()
-item5_entry = Entry(textvariable=item5_var, bg='light pink')
-item5_entry.grid(row=6, column=3)
+Label(text="Momos", fg="blue", font='f 11 bold').grid(row=6, column=2)
+momos_var = StringVar()
+momos_entry = Entry(textvariable=momos_var, bg='light pink')
+momos_entry.grid(row=6, column=3)
 
-total_lab = Label(text="total", fg="blue", font='f 11 bold').grid(row=7, column=2)
+Label(text="Total", fg="blue", font='f 11 bold').grid(row=7, column=2)
 total_var = StringVar()
 total_entry = Entry(textvariable=total_var, bg='light pink', highlightcolor='black')
 total_entry.grid(row=7, column=3)
 
 # 2. personnel info
-personnel_info_leb = Label(text="personnel info", font=('relief', 14, 'bold')).grid(row=1, column=5)
+Label(text="personnel info", font=('relief', 14, 'bold')).grid(row=1, column=5)
 
-name_lab = Label(text="full name", fg="blue", font='f 11 bold').grid(row=2, column=4)
+Label(text="Full Name", fg="blue", font='f 11 bold').grid(row=2, column=4)
 name_var = StringVar()
 name_entry = Entry(textvariable=name_var, bg='light pink')
 name_entry.grid(row=2, column=5)
 
-phone_lab = Label(text="phone no.", fg="blue", font='f 11 bold').grid(row=3, column=4)
+Label(text="Phone No.", fg="blue", font='f 11 bold').grid(row=3, column=4)
 phone_var = StringVar()
 phone_entry = Entry(textvariable=phone_var, bg='light pink')
 phone_entry.grid(row=3, column=5)
 
-pincode_lab = Label(text="pincode", fg="blue", font='f 11 bold').grid(row=4, column=4)
+Label(text="Pincode", fg="blue", font='f 11 bold').grid(row=4, column=4)
 pincode_var = StringVar()
 pincode_entry = Entry(textvariable=pincode_var, bg='light pink')
 pincode_entry.grid(row=4, column=5)
 
-state_lab = Label(text="your state", fg="blue", font='f 11 bold').grid(row=5, column=4)
+Label(text="State", fg="blue", font='f 11 bold').grid(row=5, column=4)
 state_var = StringVar()
 state_entry = Entry(textvariable=state_var, bg='light pink')
 state_entry.grid(row=5, column=5)
 
-city_lab = Label(text="your city", fg="blue", font='f 11 bold').grid(row=6, column=4)
+Label(text="City", fg="blue", font='f 11 bold').grid(row=6, column=4)
 city_var = StringVar()
 city_entry = Entry(textvariable=city_var, bg='light pink')
 city_entry.grid(row=6, column=5)
 
-building_lab = Label(text="your building no.", fg="blue", font='f 11 bold').grid(row=7, column=4)
+Label(text="Building No.", fg="blue", font='f 11 bold').grid(row=7, column=4)
 building_var = StringVar()
 building_entry = Entry(textvariable=building_var, bg='light pink')
 building_entry.grid(row=7, column=5)
 
-menu_btn = Button(text="menu", command=menu).grid(row=8, column=2)
-clear_btn = Button(text=" clear ", command=clear).grid(row=8, column=3)
-total_btn = Button(text=" total ", command=total).grid(row=8, column=4)
-submit_btn = Button(text=" submit ", command=submit).grid(row=8, column=5, pady=5)
+# menu button
+Button(text="Menu", command=menu).grid(row=8, column=2)
 
-sub_msg_lab = Label(text='', fg='green', font='aa 15 bold', bg='black', width=46)
+# clear button
+Button(text=" Clear ", command=clear).grid(row=8, column=3)
+
+# total button
+Button(text=" Total ", command=total).grid(row=8, column=4)
+
+# submit button
+submit_btn = Button(text=" Submit ", command=submit)
+submit_btn.grid(row=8, column=5, pady=5)
+
+sub_msg_lab = Label(text='', fg='green', font='aa 15 bold', bg='black', width=47)
 sub_msg_lab.grid(row=10, column=0, columnspan=6, pady=15)
 
+Label(text="User Name", fg="blue", font='f 11 bold').grid(row=11, column=2)
+user_name_auto = StringVar()
 
-Label(text="user name", fg="blue", font='f 11 bold').grid(row=11, column=2)
+auto_fill_en = Entry(textvariable=user_name_auto, bg='light pink')
+auto_fill_en.grid(row=11, column=3)
 
-# global user_name_var_top
-user_name_var_top = StringVar()
-Entry(textvariable=user_name_var_top, bg='light pink').grid(row=11, column=3)
+Button(text='Auto fill', command=auto_fill).grid(row=11, column=4)
 
-auto_fill = Button(text='auto fill', command=auto_fill).grid(row=11, column=4)
+Button(text='Sing in', command=sing_in_top).grid(row=11, column=5)
 
-sing_in_btn = Button(text='sing in', command=sing_in_top).grid(row=11, column=5)
-
-thanks_lab = Label(text='thank you for visiting my software', fg='green', font='aa 15 bold', bg='black', padx=115)
-thanks_lab.grid(row=12, column=0, columnspan=6, pady=48)
+thank_lab = Label(text='Thank You For Visiting My Software', fg='green', font='aa 15 bold', bg='black', padx=115)
+thank_lab.grid(row=12, column=0, columnspan=6, pady=48)
 
 root.mainloop()

@@ -1,0 +1,25 @@
+
+
+username: prince , phone no: 999999999 , pincode: 646464
+state: 565awdawd, city: gjawkjfkjn , building no: 565
+total: 99
+
+username: prince gohel , phone no: 9898442205 , pincode: 360311
+state: gujrat, city: gondal , building no: 22
+total: 148
+
+username: jin , phone no: 9426333140 , pincode: 360311
+state: rajkot, city: gondal , building no: 1
+total: 246
+
+username: prince gohel , phone no: 9898442205 , pincode: 360311
+state: gujrat, city: gondal , building no: 22
+total: 99
+
+username: snmn , phone no: 65235353 , pincode: 3232323
+state: 323, city: awklka , building no: aknwdknan
+total: 99
+
+username: mahesh , phone no: 9898442205 , pincode: 360311
+state: gujrat, city: gondal , building no: 9
+total: 99
